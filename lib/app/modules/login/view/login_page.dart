@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:house_easy/app/modules/login/Helpers/validator.dart';
+import 'package:house_easy/app/modules/login/ViewModel/auth_login_viewmodel.dart';
+import 'package:house_easy/app/modules/login/controller/load_button_login_controller.dart';
+import 'package:house_easy/app/modules/login/model/user_login_model.dart';
 import 'package:house_easy/app/style/colors_guide.dart';
 
 class LoginPage extends StatefulWidget {
@@ -9,17 +13,33 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final UserLoginModel user = UserLoginModel();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final GlobalKey<FormState> _formLogin = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
+    final Size _sizeScreen = MediaQuery.of(context).size;
     return Scaffold(
+      extendBodyBehindAppBar: true,
       backgroundColor: ColorsGuides().colorPredominant,
-      body: SingleChildScrollView(
-        child: Center(
+      body: Form(
+        key: _formLogin,
+        child: SingleChildScrollView(
           child: Column(
             children: [
-              Hero(
-                tag: "logo_splash",
-                child: Image.asset("assets/splash_screen/logo_houseEasy.jpg"),
+              SizedBox(
+                width: _sizeScreen.width * 0.75,
+                    height: _sizeScreen.height * 0.40,
+                child: Hero(
+                  
+                  tag: "logo_splash",
+                  child: Image.asset(
+                    "assets/splash_screen/logo_houseEasy.jpg",
+                  
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 30, left: 30),
@@ -32,19 +52,25 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     children: [
                       TextFormField(
+                        controller: _emailController,
                         decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            icon: Icon(
-                              Icons.person_outline_rounded,
-                              color: Colors.white,
-                            ),
-                            suffixIcon: Icon(
-                              Icons.cancel,
-                              color: Colors.white,
-                              size: 20,
-                            ),
-                            hintStyle: TextStyle(color: Colors.white),
-                            hintText: "E-mail"),
+                          border: InputBorder.none,
+                          icon: Icon(
+                            Icons.person_outline_rounded,
+                            color: Colors.white,
+                          ),
+                          suffixIcon: Icon(
+                            Icons.cancel,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                          hintStyle: TextStyle(color: Colors.white),
+                          hintText: "E-mail",
+                        ),
+                        validator: (email) {
+                          return Validator().emailFormLogin(email!);
+                        },
+                        onSaved: (newValue) => user.email = newValue!,
                       ),
                       Divider(
                         color: ColorsGuides().colorDetails,
@@ -52,20 +78,23 @@ class _LoginPageState extends State<LoginPage> {
                         height: 10,
                       ),
                       TextFormField(
+                        controller: _passwordController,
                         obscureText: true,
                         decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            icon: Icon(
-                              Icons.lock_outline_rounded,
-                              color: Colors.white,
-                            ),
-                            suffixIcon: Icon(
-                              Icons.remove_red_eye_sharp,
-                              color: Colors.white,
-                              size: 20,
-                            ),
-                            hintStyle: TextStyle(color: Colors.white),
-                            hintText: "Senha"),
+                          border: InputBorder.none,
+                          icon: Icon(
+                            Icons.lock_outline_rounded,
+                            color: Colors.white,
+                          ),
+                          suffixIcon: Icon(
+                            Icons.remove_red_eye_sharp,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                          hintStyle: TextStyle(color: Colors.white),
+                          hintText: "Senha",
+                        ),
+                        onSaved: (newValue) => user.password = newValue!,
                       ),
                     ],
                   ),
@@ -87,20 +116,33 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 20,
               ),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text(
-                  "Entrar",
-                  style: TextStyle(color: Colors.black),
-                ),
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all((RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0)))),
-                  minimumSize: MaterialStateProperty.all(const Size(180, 40)),
-                  backgroundColor: MaterialStateProperty.all(
-                    const Color(0xFF02F2F1),
-                  ),
-                ),
+              ValueListenableBuilder<bool>(
+                valueListenable: LoadButtonLoginController.isLoad,
+                builder: (context, isLoad, child) => isLoad
+                    ? CircularProgressIndicator(
+                        color: ColorsGuides().colorDetails)
+                    : ElevatedButton(
+                        onPressed: () async {
+                          if (_formLogin.currentState!.validate()) {
+                            _formLogin.currentState!.save();
+                            await AuthLoginViewModel().login(user);
+                          }
+                        },
+                        child: const Text(
+                          "Entrar",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all(
+                              (RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0)))),
+                          minimumSize:
+                              MaterialStateProperty.all(const Size(180, 40)),
+                          backgroundColor: MaterialStateProperty.all(
+                            const Color(0xFF02F2F1),
+                          ),
+                        ),
+                      ),
               ),
               const SizedBox(height: 30),
               Row(
@@ -112,9 +154,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   TextButton(
                       onPressed: () {},
-                      child: const Text(
+                      child: Text(
                         "Crie uma agora!",
-                        style: TextStyle(color: Colors.blue),
+                        style: TextStyle(color: ColorsGuides().colorDetails),
                       ))
                 ],
               ),

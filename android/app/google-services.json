@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "40784628036",
+    "project_id": "house-easy",
+    "storage_bucket": "house-easy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:40784628036:android:d7159a37b14d6c115baf11",
+        "android_client_info": {
+          "package_name": "com.example.house_easy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "40784628036-gj8d124esge3jo4ebshhi8fbhkjqp773.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4QBeyLzJdz1rA7wPmZC-vWcPshY2TRKo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "40784628036-gj8d124esge3jo4ebshhi8fbhkjqp773.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
