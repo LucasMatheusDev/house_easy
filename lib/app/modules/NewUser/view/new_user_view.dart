@@ -74,6 +74,7 @@ class _NewUserViewState extends State<NewUserView> {
                         height: 10,
                       ),
                       TextFormField(
+                        key: const Key("formEmail"),
                         controller: _emailController,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
@@ -86,6 +87,7 @@ class _NewUserViewState extends State<NewUserView> {
                           hintText: "E-mail",
                         ),
                         validator: (email) {
+
                           return Validator().emailFormLogin(email!);
                         },
                         onSaved: (newValue) => _newUser.email = newValue!,
@@ -161,6 +163,7 @@ class _NewUserViewState extends State<NewUserView> {
                     ? CircularProgressIndicator(
                         color: ColorsGuides().colorDetails)
                     : ElevatedButton(
+                      key: const Key("buttonNewUser"),
                         onPressed: () async {
                           if (_formNewUser.currentState!.validate()) {
                             _formNewUser.currentState!.save();
