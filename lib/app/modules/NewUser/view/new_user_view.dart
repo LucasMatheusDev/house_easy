@@ -1,33 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:house_easy/app/modules/NewUser/view/new_user_view.dart';
+import 'package:house_easy/app/modules/NewUser/controller/button_new_user_controller.dart';
+import 'package:house_easy/app/modules/NewUser/model/new_user_model.dart';
 import 'package:house_easy/app/modules/login/Helpers/validator.dart';
-import 'package:house_easy/app/modules/login/ViewModel/auth_login_viewmodel.dart';
-import 'package:house_easy/app/modules/login/controller/load_button_login_controller.dart';
-import 'package:house_easy/app/modules/login/model/user_login_model.dart';
+import 'package:house_easy/app/modules/login/view/login_page.dart';
 import 'package:house_easy/app/style/colors_guide.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class NewUserView extends StatefulWidget {
+  const NewUserView({Key? key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  State<NewUserView> createState() => _NewUserViewState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  final UserLoginModel user = UserLoginModel();
+class _NewUserViewState extends State<NewUserView> {
+  final TextEditingController _name = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final GlobalKey<FormState> _formLogin = GlobalKey<FormState>();
+  final NewUserModel _newUser = NewUserModel();
+  final Rx<bool> _isCheck = false.obs;
+  final GlobalKey<FormState> _formNewUser = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final Size _sizeScreen = MediaQuery.of(context).size;
     return Scaffold(
-      extendBodyBehindAppBar: true,
       backgroundColor: ColorsGuides().colorPredominant,
       body: Form(
-        key: _formLogin,
+        key: _formNewUser,
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -52,13 +52,31 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     children: [
                       TextFormField(
+                        controller: _name,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          suffixIcon: Icon(
+                            Icons.cancel,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                          hintStyle: TextStyle(color: Colors.white),
+                          hintText: "Nome Completo",
+                        ),
+                        validator: (email) {
+                          return Validator().emailFormLogin(email!);
+                        },
+                        onSaved: (newValue) => _newUser.email = newValue!,
+                      ),
+                      Divider(
+                        color: ColorsGuides().colorDetails,
+                        thickness: 2,
+                        height: 10,
+                      ),
+                      TextFormField(
                         controller: _emailController,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
-                          icon: Icon(
-                            Icons.person_outline_rounded,
-                            color: Colors.white,
-                          ),
                           suffixIcon: Icon(
                             Icons.cancel,
                             color: Colors.white,
@@ -70,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                         validator: (email) {
                           return Validator().emailFormLogin(email!);
                         },
-                        onSaved: (newValue) => user.email = newValue!,
+                        onSaved: (newValue) => _newUser.email = newValue!,
                       ),
                       Divider(
                         color: ColorsGuides().colorDetails,
@@ -82,10 +100,6 @@ class _LoginPageState extends State<LoginPage> {
                         obscureText: true,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
-                          icon: Icon(
-                            Icons.lock_outline_rounded,
-                            color: Colors.white,
-                          ),
                           suffixIcon: Icon(
                             Icons.remove_red_eye_sharp,
                             color: Colors.white,
@@ -94,42 +108,67 @@ class _LoginPageState extends State<LoginPage> {
                           hintStyle: TextStyle(color: Colors.white),
                           hintText: "Senha",
                         ),
-                        onSaved: (newValue) => user.password = newValue!,
+                        onSaved: (newValue) => _newUser.password = newValue!,
                       ),
                     ],
                   ),
                 ),
               ),
               Align(
-                alignment: Alignment.topRight,
+                alignment: Alignment.topLeft,
                 child: Padding(
-                  padding: const EdgeInsets.only(right: 20),
+                  padding: const EdgeInsets.only(left: 20),
                   child: TextButton(
                     onPressed: () {},
                     child: const Text(
-                      "Esqueceu a senha ?",
+                      "A senha deve ter ao menos 6 caracteres",
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 20,
+              const SizedBox(height: 30),
+              Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: Row(
+                  children: [
+                    Obx(
+                      () => Checkbox(
+                          fillColor: MaterialStateProperty.all(
+                              ColorsGuides().colorDetails),
+                          checkColor: Colors.white,
+                          value: _isCheck.value,
+                          onChanged: (value) {
+                            _isCheck.value = value!;
+                          }),
+                    ),
+                    const Expanded(
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          "Ao criar uma conta, você concorda com os Termos e condições e com a política de privacidade da Houseasy",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
+              const SizedBox(height: 30),
               ValueListenableBuilder<bool>(
-                valueListenable: LoadButtonLoginController.isLoad,
+                valueListenable: ButtonNewUser.isLoad,
                 builder: (context, isLoad, child) => isLoad
                     ? CircularProgressIndicator(
                         color: ColorsGuides().colorDetails)
                     : ElevatedButton(
                         onPressed: () async {
-                          if (_formLogin.currentState!.validate()) {
-                            _formLogin.currentState!.save();
-                            await AuthLoginViewModel().login(user);
+                          if (_formNewUser.currentState!.validate()) {
+                            _formNewUser.currentState!.save();
+                            //! cadastrar novo usuário
                           }
                         },
                         child: const Text(
-                          "Entrar",
+                          "Criar conta",
                           style: TextStyle(color: Colors.black),
                         ),
                         style: ButtonStyle(
@@ -149,18 +188,17 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    "Não tem uma conta ?",
+                    "Já possui uma conta ?",
                     style: TextStyle(color: Colors.white),
                   ),
                   TextButton(
                       onPressed: () {
-                        Get.to(
-                          () => const NewUserView(),
-                          transition: Transition.fadeIn,
+                        Get.off(
+                          () => const LoginPage(),
                         );
                       },
                       child: Text(
-                        "Crie uma agora!",
+                        "Faça o Login!",
                         style: TextStyle(color: ColorsGuides().colorDetails),
                       ))
                 ],
