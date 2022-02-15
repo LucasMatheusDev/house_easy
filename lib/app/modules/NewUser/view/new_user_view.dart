@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:house_easy/app/modules/NewUser/controller/button_new_user_controller.dart';
 import 'package:house_easy/app/modules/NewUser/model/new_user_model.dart';
+import 'package:house_easy/app/modules/NewUser/viewmodel/new_user_register_vm.dart';
 import 'package:house_easy/app/modules/login/Helpers/validator.dart';
 import 'package:house_easy/app/modules/login/view/login_page.dart';
 import 'package:house_easy/app/style/colors_guide.dart';
@@ -14,7 +15,7 @@ class NewUserView extends StatefulWidget {
 }
 
 class _NewUserViewState extends State<NewUserView> {
-  final TextEditingController _name = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final NewUserModel _newUser = NewUserModel();
@@ -52,7 +53,8 @@ class _NewUserViewState extends State<NewUserView> {
                   child: Column(
                     children: [
                       TextFormField(
-                        controller: _name,
+                        key: const Key("formName"),
+                        controller: _nameController,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
                           suffixIcon: Icon(
@@ -63,8 +65,8 @@ class _NewUserViewState extends State<NewUserView> {
                           hintStyle: TextStyle(color: Colors.white),
                           hintText: "Nome Completo",
                         ),
-                        validator: (email) {
-                          return Validator().emailFormLogin(email!);
+                        validator: (name) {
+                          return Validator().name(name!);
                         },
                         onSaved: (newValue) => _newUser.email = newValue!,
                       ),
@@ -87,7 +89,6 @@ class _NewUserViewState extends State<NewUserView> {
                           hintText: "E-mail",
                         ),
                         validator: (email) {
-
                           return Validator().emailFormLogin(email!);
                         },
                         onSaved: (newValue) => _newUser.email = newValue!,
@@ -98,6 +99,7 @@ class _NewUserViewState extends State<NewUserView> {
                         height: 10,
                       ),
                       TextFormField(
+                        key: const Key("formPassword"),
                         controller: _passwordController,
                         obscureText: true,
                         decoration: const InputDecoration(
@@ -111,6 +113,8 @@ class _NewUserViewState extends State<NewUserView> {
                           hintText: "Senha",
                         ),
                         onSaved: (newValue) => _newUser.password = newValue!,
+                        validator: (password) =>
+                            Validator().password(password!),
                       ),
                     ],
                   ),
@@ -163,11 +167,11 @@ class _NewUserViewState extends State<NewUserView> {
                     ? CircularProgressIndicator(
                         color: ColorsGuides().colorDetails)
                     : ElevatedButton(
-                      key: const Key("buttonNewUser"),
+                        key: const Key("buttonNewUser"),
                         onPressed: () async {
                           if (_formNewUser.currentState!.validate()) {
                             _formNewUser.currentState!.save();
-                            //! cadastrar novo usuário
+                            NewUserRegisterVM().newUser(_newUser);
                           }
                         },
                         child: const Text(
