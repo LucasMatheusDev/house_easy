@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:house_easy/app/style/colors_guide.dart';
 
 class CustomAppBarTitleWidget extends StatelessWidget {
-  const CustomAppBarTitleWidget({Key? key}) : super(key: key);
+  final bool isAdd;
+  const CustomAppBarTitleWidget({Key? key, this.isAdd = true})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,12 +17,14 @@ class CustomAppBarTitleWidget extends StatelessWidget {
         ),
         Text(
           "Boa tarde, Lucas!",
-          style: TextStyle(color: ColorsGuides().colorDetails, fontSize: 20),
+          style: TextStyle(color: ColorsGuides().colorDetails, fontSize: 15),
         ),
-        const Icon(
-          Icons.cancel_sharp,
-          color: Colors.white,
-        )
+        isAdd
+            ? const Icon(Icons.add, color: Colors.white)
+            : const Icon(
+                Icons.cancel_sharp,
+                color: Colors.white,
+              ),
       ],
     );
   }

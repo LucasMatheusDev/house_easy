@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:house_easy/app/modules/home/components/custom_appbar/components/custom_app_bar_inscroll_widget.dart';
+import 'package:house_easy/app/modules/home/components/custom_appbar/components/custom_app_bar_title_widget.dart';
 import 'package:house_easy/app/modules/home/components/custom_appbar/components/smile_edit_profile.widget.dart';
 import 'package:house_easy/app/style/colors_guide.dart';
 
@@ -21,13 +23,13 @@ class _CustomAppBarState extends State<CustomAppBar> {
       child: SizedBox(
         width: widget.sizeScreen.width,
         height: widget.sizeScreen.height * 0.55,
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            print(constraints.minHeight);
-            return (DraggableScrollableSheet(
-              initialChildSize: 0.30,
-              minChildSize: 0.30,
-              builder: (context, scrollController) {
+        child: DraggableScrollableSheet(
+          snap: true,
+          initialChildSize: 0.30,
+          minChildSize: 0.30,
+          builder: (context, scrollController) {
+            return LayoutBuilder(
+              builder: (context, constraints) {
                 return ListView(
                   shrinkWrap: true,
                   itemExtent: widget.sizeScreen.height * 0.55,
@@ -49,95 +51,21 @@ class _CustomAppBarState extends State<CustomAppBar> {
                           padding: const EdgeInsets.only(
                               top: 35, bottom: 5, left: 20, right: 20),
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisAlignment: constraints.maxHeight <= 113
+                                ? MainAxisAlignment.end
+                                : MainAxisAlignment.start,
                             children: [
-                              // scrollController.positions.last.minScrollExtent >
-                              //         0.0
-                              //     ? Container()
-                              //     :
-                              const SmileEditProfile(),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  const Icon(
-                                    Icons.stay_current_landscape,
-                                    color: Colors.white,
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  TextButton(
-                                    onPressed: () {},
-                                    child: const Text(
-                                      "Módulos",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  const Icon(
-                                    Icons.people,
-                                    color: Colors.white,
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  TextButton(
-                                    onPressed: () {},
-                                    child: const Text(
-                                      "Permissões",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  const Icon(
-                                    Icons.settings,
-                                    color: Colors.white,
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  TextButton(
-                                    onPressed: () {},
-                                    child: const Text(
-                                      "Configurações",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  const Icon(
-                                    Icons.help_outline_outlined,
-                                    color: Colors.white,
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  TextButton(
-                                    onPressed: () {},
-                                    child: const Text(
-                                      "Ajuda",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              // scrollController.positions.last.minScrollExtent <=
-                              //         0.0
-                              //     ? const CustomAppBarTitleWidget()
-                              //     :
-                              const Spacer(),
+                              constraints.maxHeight >= 113
+                                  ? const CustomAppBarTitleWidget(isAdd: false)
+                                  : Container(),
+                              constraints.maxHeight >= 113
+                                  ? const CustomAppbarInScroll()
+                                  : Container(),
+                              constraints.maxHeight <= 113
+                                  ? const CustomAppBarTitleWidget()
+                                  : Container(),
                               Container(
+                                margin: const EdgeInsets.only(top: 15),
                                 height: 5,
                                 width: 80,
                                 decoration: BoxDecoration(
@@ -153,11 +81,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
                   ],
                 );
               },
-            ));
+            );
           },
         ),
-        //),
       ),
+      //),
     );
   }
 }
