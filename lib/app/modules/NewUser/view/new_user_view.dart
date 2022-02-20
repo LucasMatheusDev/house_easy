@@ -68,7 +68,7 @@ class _NewUserViewState extends State<NewUserView> {
                         validator: (name) {
                           return Validator().name(name!);
                         },
-                        onSaved: (newValue) => _newUser.email = newValue!,
+                        onSaved: (newValue) => _newUser.name = newValue!,
                       ),
                       Divider(
                         color: ColorsGuides().colorDetails,

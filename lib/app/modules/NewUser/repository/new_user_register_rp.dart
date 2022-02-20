@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:house_easy/app/modules/NewUser/model/new_user_model.dart';
 
 class NewUserRegisterRP {
@@ -8,6 +9,7 @@ class NewUserRegisterRP {
     final UserCredential _credential =
         await _auth.createUserWithEmailAndPassword(
             email: newUser.email!, password: newUser.password!);
+     debugPrint("CREDENCIAL: $_credential");
     await _updateName(newUser.name!);
     return _credential;
   }

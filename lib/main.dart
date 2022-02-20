@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:house_easy/app/modules/splash_screen/view/splash_screen.dart';
+import 'package:house_easy/app/modules/home/view/home_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,6 +17,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const SplashScreen(),);
+        home: const HomeView() 
+        //const SplashScreen(),
+        );
   }
 }

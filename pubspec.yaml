@@ -64,6 +64,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/splash_screen/logo_houseEasy.jpg
+    - assets/home/pages/initial/home_1.jpeg
+    - assets/home/pages/module/home_2.jpeg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

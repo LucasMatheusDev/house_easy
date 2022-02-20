@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:house_easy/app/modules/login/test/Ui/login_ui_test.dart';
 import 'package:house_easy/app/modules/splash_screen/view/splash_screen.dart';
 
 void main() {

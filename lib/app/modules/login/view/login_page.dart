@@ -125,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: () async {
                           if (_formLogin.currentState!.validate()) {
                             _formLogin.currentState!.save();
-                            await AuthLoginViewModel().login(user);
+                            AuthLoginViewModel().login(user);
                           }
                         },
                         child: const Text(
