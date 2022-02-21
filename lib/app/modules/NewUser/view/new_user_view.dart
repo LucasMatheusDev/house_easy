@@ -166,26 +166,33 @@ class _NewUserViewState extends State<NewUserView> {
                 builder: (context, isLoad, child) => isLoad
                     ? CircularProgressIndicator(
                         color: ColorsGuides().colorDetails)
-                    : ElevatedButton(
-                        key: const Key("buttonNewUser"),
-                        onPressed: () async {
-                          if (_formNewUser.currentState!.validate()) {
-                            _formNewUser.currentState!.save();
-                            NewUserRegisterVM().newUser(_newUser);
-                          }
-                        },
-                        child: const Text(
-                          "Criar conta",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        style: ButtonStyle(
-                          shape: MaterialStateProperty.all(
-                              (RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0)))),
-                          minimumSize:
-                              MaterialStateProperty.all(const Size(180, 40)),
-                          backgroundColor: MaterialStateProperty.all(
-                            const Color(0xFF02F2F1),
+                    : Obx(
+                        () => ElevatedButton(
+                          key: const Key("buttonNewUser"),
+                          onPressed: _isCheck.value
+                              ? () async {
+                                  if (_formNewUser.currentState!.validate()) {
+                                    _formNewUser.currentState!.save();
+                                    NewUserRegisterVM().newUser(_newUser);
+                                  }
+                                }
+                              : () {},
+                          child: const Text(
+                            "Criar conta",
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all(
+                                (RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(10.0)))),
+                            minimumSize:
+                                MaterialStateProperty.all(const Size(180, 40)),
+                            backgroundColor: MaterialStateProperty.all(
+                              _isCheck.value
+                                  ? const Color(0xFF02F2F1)
+                                  : Colors.grey,
+                            ),
                           ),
                         ),
                       ),

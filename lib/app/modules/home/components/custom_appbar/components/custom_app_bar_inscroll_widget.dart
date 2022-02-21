@@ -86,15 +86,6 @@ class CustomAppbarInScroll extends StatelessWidget {
             ),
           ],
         ),
-
-        // Container(
-        //   height: 5,
-        //   width: 80,
-        //   decoration: BoxDecoration(
-        //     color: Colors.grey[200],
-        //     borderRadius: BorderRadius.circular(20),
-        //   ),
-        // )
       ],
     );
   }

@@ -9,7 +9,7 @@ class NewUserRegisterVM {
     ButtonNewUser.isLoad.value = true;
     final _credential = await NewUserRegisterRP().createNewAccount(newUser);
    
-    if (_credential.user == null) {
+    if (_credential?.user == null) {
       Get.snackbar(
           "Cadastro invalido", "Por favor, verifique os campos digitados");
       ButtonNewUser.isLoad.value = false;

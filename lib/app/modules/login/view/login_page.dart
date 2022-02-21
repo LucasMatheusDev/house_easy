@@ -19,6 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formLogin = GlobalKey<FormState>();
+  RxBool isObscure = true.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -52,17 +53,25 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     children: [
                       TextFormField(
+                        style: const TextStyle(color: Colors.white),
                         controller: _emailController,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           border: InputBorder.none,
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.person_outline_rounded,
                             color: Colors.white,
                           ),
-                          suffixIcon: Icon(
-                            Icons.cancel,
-                            color: Colors.white,
-                            size: 20,
+                          suffixIcon: IconButton(
+                            splashRadius: 1,
+                            splashColor: Colors.transparent,
+                            onPressed: () {
+                              _emailController.text = "";
+                            },
+                            icon: const Icon(
+                              Icons.cancel,
+                              color: Colors.white,
+                              size: 20,
+                            ),
                           ),
                           hintStyle: TextStyle(color: Colors.white),
                           hintText: "E-mail",
@@ -77,24 +86,36 @@ class _LoginPageState extends State<LoginPage> {
                         thickness: 2,
                         height: 10,
                       ),
-                      TextFormField(
-                        controller: _passwordController,
-                        obscureText: true,
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          icon: Icon(
-                            Icons.lock_outline_rounded,
-                            color: Colors.white,
+                      Obx(
+                        () => TextFormField(
+                          style: const TextStyle(color: Colors.white),
+                          controller: _passwordController,
+                          obscureText: isObscure.value,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            icon: const Icon(
+                              Icons.lock_outline_rounded,
+                              color: Colors.white,
+                            ),
+                            suffixIcon: IconButton(
+                              splashRadius: 1,
+                              splashColor: Colors.transparent,
+                              onPressed: () {
+                                isObscure.value = !isObscure.value;
+                              },
+                              icon: Icon(
+                                isObscure.value
+                                    ? Icons.lock
+                                    : Icons.remove_red_eye_sharp,
+                                color: Colors.white,
+                                size: 20,
+                              ),
+                            ),
+                            hintStyle: const TextStyle(color: Colors.white),
+                            hintText: "Senha",
                           ),
-                          suffixIcon: Icon(
-                            Icons.remove_red_eye_sharp,
-                            color: Colors.white,
-                            size: 20,
-                          ),
-                          hintStyle: TextStyle(color: Colors.white),
-                          hintText: "Senha",
+                          onSaved: (newValue) => user.password = newValue!,
                         ),
-                        onSaved: (newValue) => user.password = newValue!,
                       ),
                     ],
                   ),

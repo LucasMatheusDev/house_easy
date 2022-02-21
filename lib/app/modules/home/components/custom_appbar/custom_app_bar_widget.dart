@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:house_easy/app/modules/home/components/custom_appbar/components/custom_app_bar_inscroll_widget.dart';
 import 'package:house_easy/app/modules/home/components/custom_appbar/components/custom_app_bar_title_widget.dart';
-import 'package:house_easy/app/modules/home/components/custom_appbar/components/smile_edit_profile.widget.dart';
 import 'package:house_easy/app/style/colors_guide.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -16,8 +15,12 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
+  final double _minChildSize = 0.30;
+
   @override
   Widget build(BuildContext context) {
+    final sizeAppBar = widget.sizeScreen.height * 0.55;
+    final sizeAppBarMin = sizeAppBar * _minChildSize + 0.5;
     return RotatedBox(
       quarterTurns: 6,
       child: SizedBox(
@@ -25,8 +28,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
         height: widget.sizeScreen.height * 0.55,
         child: DraggableScrollableSheet(
           snap: true,
-          initialChildSize: 0.30,
-          minChildSize: 0.30,
+          initialChildSize: _minChildSize,
+          minChildSize: _minChildSize,
           builder: (context, scrollController) {
             return LayoutBuilder(
               builder: (context, constraints) {
@@ -51,17 +54,18 @@ class _CustomAppBarState extends State<CustomAppBar> {
                           padding: const EdgeInsets.only(
                               top: 35, bottom: 5, left: 20, right: 20),
                           child: Column(
-                            mainAxisAlignment: constraints.maxHeight <= 113
-                                ? MainAxisAlignment.end
-                                : MainAxisAlignment.start,
+                            mainAxisAlignment:
+                                constraints.maxHeight <= sizeAppBarMin
+                                    ? MainAxisAlignment.end
+                                    : MainAxisAlignment.start,
                             children: [
-                              constraints.maxHeight >= 113
+                              constraints.maxHeight > sizeAppBarMin
                                   ? const CustomAppBarTitleWidget(isAdd: false)
                                   : Container(),
-                              constraints.maxHeight >= 113
+                              constraints.maxHeight >= sizeAppBarMin
                                   ? const CustomAppbarInScroll()
                                   : Container(),
-                              constraints.maxHeight <= 113
+                              constraints.maxHeight <= sizeAppBarMin
                                   ? const CustomAppBarTitleWidget()
                                   : Container(),
                               Container(

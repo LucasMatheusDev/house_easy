@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:house_easy/app/modules/home/components/pages/initial/view/home_initial_view.dart';
 import 'package:get/get.dart';
+import 'package:house_easy/app/modules/home/components/pages/initial/view/home_initial_view.dart';
 import 'package:house_easy/app/modules/home/components/pages/module/view/home_module_view.dart';
 
 class HomePagesController extends GetxController {
