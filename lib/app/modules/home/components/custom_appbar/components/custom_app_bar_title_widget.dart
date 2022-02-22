@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:house_easy/app/modules/home/controller/user_current_controller.dart';
 import 'package:house_easy/app/style/colors_guide.dart';
 
 class CustomAppBarTitleWidget extends StatelessWidget {
@@ -16,7 +17,7 @@ class CustomAppBarTitleWidget extends StatelessWidget {
           color: Colors.white,
         ),
         Text(
-          "Boa tarde, Lucas!",
+          "Boa tarde, ${UserCurrentController.name}!",
           style: TextStyle(color: ColorsGuides().colorDetails, fontSize: 15),
         ),
         isAdd

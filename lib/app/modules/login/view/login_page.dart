@@ -73,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                               size: 20,
                             ),
                           ),
-                          hintStyle: TextStyle(color: Colors.white),
+                          hintStyle: const TextStyle(color: Colors.white),
                           hintText: "E-mail",
                         ),
                         validator: (email) {

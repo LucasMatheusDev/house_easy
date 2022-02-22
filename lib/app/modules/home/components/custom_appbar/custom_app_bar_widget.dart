@@ -15,7 +15,7 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
-  final double _minChildSize = 0.30;
+  final double _minChildSize = 0.35;
 
   @override
   Widget build(BuildContext context) {

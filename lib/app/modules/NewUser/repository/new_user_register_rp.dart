@@ -5,7 +5,7 @@ import 'package:house_easy/app/modules/NewUser/model/new_user_model.dart';
 class NewUserRegisterRP {
   Future<UserCredential?> createNewAccount(NewUserModel newUser) async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
-     UserCredential? _credential;
+    UserCredential? _credential;
     try {
       _credential = await _auth.createUserWithEmailAndPassword(
           email: newUser.email!, password: newUser.password!);
@@ -19,8 +19,7 @@ class NewUserRegisterRP {
 
   Future<void> _updateName(String name) async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
-    if (_auth.currentUser != null) {
-      await _auth.currentUser?.updateDisplayName(name);
-    }
+
+    await _auth.currentUser?.updateDisplayName(name);
   }
 }

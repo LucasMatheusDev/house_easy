@@ -21,6 +21,7 @@ class _NewUserViewState extends State<NewUserView> {
   final NewUserModel _newUser = NewUserModel();
   final Rx<bool> _isCheck = false.obs;
   final GlobalKey<FormState> _formNewUser = GlobalKey<FormState>();
+  RxBool isObscure = true.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -53,14 +54,20 @@ class _NewUserViewState extends State<NewUserView> {
                   child: Column(
                     children: [
                       TextFormField(
+                        style: const TextStyle(color: Colors.white),
                         key: const Key("formName"),
                         controller: _nameController,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           border: InputBorder.none,
-                          suffixIcon: Icon(
-                            Icons.cancel,
-                            color: Colors.white,
-                            size: 20,
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              _nameController.text = "";
+                            },
+                            icon: const Icon(
+                              Icons.cancel,
+                              color: Colors.white,
+                              size: 20,
+                            ),
                           ),
                           hintStyle: TextStyle(color: Colors.white),
                           hintText: "Nome Completo",
@@ -76,16 +83,22 @@ class _NewUserViewState extends State<NewUserView> {
                         height: 10,
                       ),
                       TextFormField(
+                        style: const TextStyle(color: Colors.white),
                         key: const Key("formEmail"),
                         controller: _emailController,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           border: InputBorder.none,
-                          suffixIcon: Icon(
-                            Icons.cancel,
-                            color: Colors.white,
-                            size: 20,
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              _emailController.text = "";
+                            },
+                            icon: const Icon(
+                              Icons.cancel,
+                              color: Colors.white,
+                              size: 20,
+                            ),
                           ),
-                          hintStyle: TextStyle(color: Colors.white),
+                          hintStyle: const TextStyle(color: Colors.white),
                           hintText: "E-mail",
                         ),
                         validator: (email) {
@@ -98,23 +111,35 @@ class _NewUserViewState extends State<NewUserView> {
                         thickness: 2,
                         height: 10,
                       ),
-                      TextFormField(
-                        key: const Key("formPassword"),
-                        controller: _passwordController,
-                        obscureText: true,
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          suffixIcon: Icon(
-                            Icons.remove_red_eye_sharp,
-                            color: Colors.white,
-                            size: 20,
+                      Obx(
+                        () => TextFormField(
+                          style: const TextStyle(color: Colors.white),
+                          key: const Key("formPassword"),
+                          controller: _passwordController,
+                          obscureText: isObscure.value,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            suffixIcon: IconButton(
+                              splashRadius: 1,
+                              splashColor: Colors.transparent,
+                              onPressed: () {
+                                isObscure.value = !isObscure.value;
+                              },
+                              icon: Icon(
+                                isObscure.value
+                                    ? Icons.lock
+                                    : Icons.remove_red_eye_sharp,
+                                color: Colors.white,
+                                size: 20,
+                              ),
+                            ),
+                            hintStyle: const TextStyle(color: Colors.white),
+                            hintText: "Senha",
                           ),
-                          hintStyle: TextStyle(color: Colors.white),
-                          hintText: "Senha",
+                          onSaved: (newValue) => _newUser.password = newValue!,
+                          validator: (password) =>
+                              Validator().password(password!),
                         ),
-                        onSaved: (newValue) => _newUser.password = newValue!,
-                        validator: (password) =>
-                            Validator().password(password!),
                       ),
                     ],
                   ),
