@@ -1,11 +1,7 @@
-import 'package:house_easy/app/modules/home/model/user_model.dart';
-import 'package:house_easy/app/modules/home/viewmodel/user_current_viewmodel.dart';
+import 'package:get/get_rx/get_rx.dart';
 
 class UserCurrentController {
-  static String? name;
+  static Rx<String> name = "".obs;
 
-  Future<void> updateName() async {
-    UserModel? user = await UserCurrentViewModel().currentUser();
-    name = user?.name;
-  }
+
 }

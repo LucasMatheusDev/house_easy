@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:house_easy/app/modules/home/components/custom_appbar/components/smile_edit_profile.widget.dart';
+import 'package:house_easy/app/modules/home/controller/user_current_controller.dart';
 
 class CustomAppbarInScroll extends StatelessWidget {
   const CustomAppbarInScroll({Key? key}) : super(key: key);
@@ -21,7 +22,9 @@ class CustomAppbarInScroll extends StatelessWidget {
               width: 10,
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                 UserCurrentController.name.value = "Módulos";
+              },
               child: const Text(
                 "Módulos",
                 style: TextStyle(color: Colors.white),
@@ -40,7 +43,9 @@ class CustomAppbarInScroll extends StatelessWidget {
               width: 10,
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                 UserCurrentController.name.value = "Permissões";
+              },
               child: const Text(
                 "Permissões",
                 style: TextStyle(color: Colors.white),
@@ -59,7 +64,9 @@ class CustomAppbarInScroll extends StatelessWidget {
               width: 10,
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                UserCurrentController.name.value = "configurações";
+              },
               child: const Text(
                 "Configurações",
                 style: TextStyle(color: Colors.white),
@@ -78,7 +85,9 @@ class CustomAppbarInScroll extends StatelessWidget {
               width: 10,
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                  UserCurrentController.name.value = "Ajuda";
+              },
               child: const Text(
                 "Ajuda",
                 style: TextStyle(color: Colors.white),

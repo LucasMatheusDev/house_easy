@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:house_easy/app/modules/home/controller/user_current_controller.dart';
 import 'package:house_easy/app/style/colors_guide.dart';
 
@@ -16,10 +17,11 @@ class CustomAppBarTitleWidget extends StatelessWidget {
           Icons.notifications,
           color: Colors.white,
         ),
-        Text(
-          "Boa tarde, ${UserCurrentController.name}!",
+       Obx(() => Text(
+          UserCurrentController.name.value,
           style: TextStyle(color: ColorsGuides().colorDetails, fontSize: 15),
         ),
+       ),
         isAdd
             ? const Icon(Icons.add, color: Colors.white)
             : const Icon(

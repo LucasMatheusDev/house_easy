@@ -12,7 +12,7 @@ class UserCurrentViewModel {
     if (hasCurrentUser) {
       final User? _userCurrent = await UserCurrentRepository().userCurrent();
       userModel = UserModel(_userCurrent);
-      await UserCurrentController().updateName();
+      UserCurrentController.name.value = "Boa tarde, ${userModel.name}";
     } else {
       Get.off(() => const LoginPage());
     }

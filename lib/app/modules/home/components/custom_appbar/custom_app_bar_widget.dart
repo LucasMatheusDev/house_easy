@@ -68,13 +68,16 @@ class _CustomAppBarState extends State<CustomAppBar> {
                               constraints.maxHeight <= sizeAppBarMin
                                   ? const CustomAppBarTitleWidget()
                                   : Container(),
-                              Container(
-                                margin: const EdgeInsets.only(top: 15),
-                                height: 5,
-                                width: 80,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[200],
-                                  borderRadius: BorderRadius.circular(20),
+                              Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Container(
+                                  margin: const EdgeInsets.only(top: 15),
+                                  height: 5,
+                                  width: 80,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
                                 ),
                               )
                             ],
