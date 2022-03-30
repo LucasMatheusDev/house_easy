@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:house_easy/app/modules/home/components/custom_appbar/components/smile_edit_profile.widget.dart';
+import 'package:house_easy/app/modules/home/controller/home_pages_controller.dart';
 import 'package:house_easy/app/modules/home/controller/user_current_controller.dart';
 
 class CustomAppbarInScroll extends StatelessWidget {
@@ -23,7 +24,9 @@ class CustomAppbarInScroll extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                 UserCurrentController.name.value = "Módulos";
+              
+                HomePagesController.pageSelected.value = 5;
+                UserCurrentController.name.value = "Módulos";
               },
               child: const Text(
                 "Módulos",
@@ -44,7 +47,8 @@ class CustomAppbarInScroll extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                 UserCurrentController.name.value = "Permissões";
+                UserCurrentController.name.value = "Permissões";
+                HomePagesController.pageSelected.value = 6;
               },
               child: const Text(
                 "Permissões",
@@ -65,6 +69,8 @@ class CustomAppbarInScroll extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
+                HomePagesController.pageSelected.value = 7;
+
                 UserCurrentController.name.value = "configurações";
               },
               child: const Text(
@@ -86,7 +92,10 @@ class CustomAppbarInScroll extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                  UserCurrentController.name.value = "Ajuda";
+                
+                HomePagesController.pageSelected.value = 8;
+
+                UserCurrentController.name.value = "Ajuda";
               },
               child: const Text(
                 "Ajuda",

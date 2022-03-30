@@ -8,13 +8,10 @@ void main() {
       testWidgets(
         'find logo',
         (WidgetTester tester) async {
-          await tester.pumpWidget(
-            const MaterialApp(
-              home: NewUserView(),
-            ),
-          );
-
-          expect(find.byType(Image), findsOneWidget);
+          
+          await tester.pumpWidget(const MaterialApp(home: NewUserView()));
+       
+          expect(find.byType(Image), findsWidgets);
           expect(
               find.image(
                   const AssetImage("assets/splash_screen/logo_houseEasy.jpg")),
@@ -44,6 +41,7 @@ void main() {
             .enterText(find.byKey(const Key("formEmail")), "emailInvalido.com")
             .onError((error, stackTrace) => throw "error testing email input ");
 
+      
         await tester.tap(find.byKey(const Key("buttonNewUser")));
         await tester.pump();
 
@@ -62,6 +60,7 @@ void main() {
             .onError(
                 (error, stackTrace) => throw "error testing password input ");
 
+    
         await tester.tap(find.byKey(const Key("buttonNewUser")));
         await tester.pump();
 
@@ -78,6 +77,7 @@ void main() {
             .enterText(find.byKey(const Key("formName")), "Lucas")
             .onError((error, stackTrace) => throw "error testing name input ");
 
+   
         await tester.tap(find.byKey(const Key("buttonNewUser")));
         await tester.pump();
 

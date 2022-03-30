@@ -1,55 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:house_easy/app/modules/login/view/login_page.dart';
+import 'package:house_easy/app/style/logo_guide.dart';
 
 void main() {
-  group('View login', () {
-    group('logo image', () {
-      testWidgets(
-        'find logo ',
-        (WidgetTester tester) async {
-          await tester.pumpWidget(
-            const MaterialApp(
-              home: LoginPage(),
-            ),
-          );
-
-          expect(find.byType(Image), findsOneWidget);
-          expect(
-              find.image(
-                  const AssetImage("assets/splash_screen/logo_houseEasy.jpg")),
-              findsOneWidget);
-        },
-      );
-    });
-    group('find widgets default', () {
-      testWidgets('widgets', (WidgetTester tester) async {
+  group('login page', () {
+    group('find logo', () {
+      testWidgets("logo", (WidgetTester tester) async {
         await tester.pumpWidget(const MaterialApp(
           home: LoginPage(),
         ));
-
-        expect(find.text("Entrar"), findsOneWidget);
-        expect(find.byType(TextFormField), findsWidgets);
-        expect(find.byType(TextButton), findsWidgets);
-      });
-      group('input text', () {
-        testWidgets('inputs email validation', (WidgetTester tester) async {
-          await tester.pumpWidget(const MaterialApp(
-            home: LoginPage(),
-          ));
-          // a escrita do campo email tem que ser exatamente igual
-          await tester.enterText(
-              find.widgetWithIcon(TextFormField, Icons.person_outline_rounded),
-              "emailInvalido.com");
-
-          await tester.tap(find.widgetWithText(ElevatedButton, "Entrar"));
-          await tester.pump();
-
-          expect(find.textContaining("E-mail digitado incorretamente"),
-              findsOneWidget);
-        });
+        await tester.pump();
+        expect(find.byType(Image), findsOneWidget);
+        expect(find.image(AssetImage(LogoGuide.logo)), findsWidgets);
       });
     });
-    //
+    group('input email', () {
+      testWidgets('input email', (WidgetTester tester) async {
+        await tester.pumpWidget(const MaterialApp(
+          home: LoginPage(),
+        ));
+        // escrever email de teste
+        await tester.enterText(
+            find.byKey(const Key("TextFormEmail")), "emailInvalido.com");
+
+        /// clicar no botão entrar
+        await tester.tap(find.byKey(
+          const Key("buttonKey"),
+        ));
+        await tester.pump();
+        expect(find.textContaining("E-mail digitado incorretamente"),
+            findsWidgets);
+      });
+    });
+group('input Password', () {
+      testWidgets('input Password', (WidgetTester tester) async {
+        await tester.pumpWidget(const MaterialApp(
+          home: LoginPage(),
+        ));
+        // escrever email de teste
+        await tester.enterText(
+            find.byKey(const Key("TextFormPassword")), "12345");
+
+        /// clicar no botão entrar
+        await tester.tap(find.byKey(
+          const Key("buttonKey"),
+        ));
+        await tester.pump();
+        expect(find.textContaining("A senha é muito curta"),
+            findsWidgets);
+      });
+    });
+
   });
 }

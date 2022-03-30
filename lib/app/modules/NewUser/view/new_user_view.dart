@@ -19,7 +19,7 @@ class _NewUserViewState extends State<NewUserView> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final NewUserModel _newUser = NewUserModel();
-  final Rx<bool> _isCheck = false.obs;
+  final Rx<bool> _isCheck = true.obs;
   final GlobalKey<FormState> _formNewUser = GlobalKey<FormState>();
   RxBool isObscure = true.obs;
 
@@ -69,7 +69,7 @@ class _NewUserViewState extends State<NewUserView> {
                               size: 20,
                             ),
                           ),
-                          hintStyle: TextStyle(color: Colors.white),
+                          hintStyle: const TextStyle(color: Colors.white),
                           hintText: "Nome Completo",
                         ),
                         validator: (name) {
@@ -165,6 +165,7 @@ class _NewUserViewState extends State<NewUserView> {
                   children: [
                     Obx(
                       () => Checkbox(
+                          key: const Key('checkKeyNewUser'),
                           fillColor: MaterialStateProperty.all(
                               ColorsGuides().colorDetails),
                           checkColor: Colors.white,

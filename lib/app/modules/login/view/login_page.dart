@@ -6,6 +6,7 @@ import 'package:house_easy/app/modules/login/ViewModel/auth_login_viewmodel.dart
 import 'package:house_easy/app/modules/login/controller/load_button_login_controller.dart';
 import 'package:house_easy/app/modules/login/model/user_login_model.dart';
 import 'package:house_easy/app/style/colors_guide.dart';
+import 'package:house_easy/app/style/logo_guide.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -38,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Hero(
                   tag: "logo_splash",
                   child: Image.asset(
-                    "assets/splash_screen/logo_houseEasy.jpg",
+                    LogoGuide.logo,
                   ),
                 ),
               ),
@@ -53,6 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     children: [
                       TextFormField(
+                        key: const Key("TextFormEmail"),
                         style: const TextStyle(color: Colors.white),
                         controller: _emailController,
                         decoration: InputDecoration(
@@ -88,6 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       Obx(
                         () => TextFormField(
+                          key: const Key("TextFormPassword"),
                           style: const TextStyle(color: Colors.white),
                           controller: _passwordController,
                           obscureText: isObscure.value,
@@ -114,6 +117,9 @@ class _LoginPageState extends State<LoginPage> {
                             hintStyle: const TextStyle(color: Colors.white),
                             hintText: "Senha",
                           ),
+                          validator: (value) {
+                            return Validator().password(value!);
+                          },
                           onSaved: (newValue) => user.password = newValue!,
                         ),
                       ),
@@ -143,6 +149,7 @@ class _LoginPageState extends State<LoginPage> {
                     ? CircularProgressIndicator(
                         color: ColorsGuides().colorDetails)
                     : ElevatedButton(
+                        key: const Key("buttonKey"),
                         onPressed: () async {
                           if (_formLogin.currentState!.validate()) {
                             _formLogin.currentState!.save();
