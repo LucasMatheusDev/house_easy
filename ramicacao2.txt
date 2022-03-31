@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-editado pela master
-=======
 editado pelo bug-fix
->>>>>>> bug-fix
