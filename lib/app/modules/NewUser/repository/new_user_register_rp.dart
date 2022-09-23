@@ -9,7 +9,7 @@ class NewUserRegisterRP {
     try {
       _credential = await _auth.createUserWithEmailAndPassword(
           email: newUser.email!, password: newUser.password!);
-      debugPrint("CREDENCIAL: $_credential");
+    
       await _updateName(newUser.name!);
     } on FirebaseAuthException catch (_) {
       return _credential;

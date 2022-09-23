@@ -8,7 +8,7 @@ class AuthLoginViewModel {
   Future login(UserLoginModel user) async {
 
     LoadButtonLoginController.isLoad.value = true;
-    
+
     final _credencial = await UserAuthenticRepository().authLogin(user);
 
     if (_credencial == null) {
@@ -23,7 +23,7 @@ class AuthLoginViewModel {
         duration: const Duration(seconds: 1),
       );
       LoadButtonLoginController.isLoad.value = false;
-     
+
     }
   }
 }
