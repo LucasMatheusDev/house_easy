@@ -33,7 +33,7 @@ void main() {
             findsWidgets);
       });
     });
-group('input Password', () {
+    group('input Password', () {
       testWidgets('input Password', (WidgetTester tester) async {
         await tester.pumpWidget(const MaterialApp(
           home: LoginPage(),
@@ -47,10 +47,8 @@ group('input Password', () {
           const Key("buttonKey"),
         ));
         await tester.pump();
-        expect(find.textContaining("A senha é muito curta"),
-            findsWidgets);
+        expect(find.textContaining("A senha é muito curta"), findsWidgets);
       });
     });
-
   });
 }

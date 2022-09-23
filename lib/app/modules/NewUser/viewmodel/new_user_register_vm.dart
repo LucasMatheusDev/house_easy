@@ -8,7 +8,7 @@ class NewUserRegisterVM {
   Future<void> newUser(NewUserModel newUser) async {
     ButtonNewUser.isLoad.value = true;
     final _credential = await NewUserRegisterRP().createNewAccount(newUser);
-   
+
     if (_credential?.user == null) {
       Get.snackbar(
           "Cadastro invalido", "Por favor, verifique os campos digitados");

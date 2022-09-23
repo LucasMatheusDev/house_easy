@@ -11,7 +11,7 @@ class UserAuthenticRepository {
     } on FirebaseAuthException catch (_) {
       return _credential;
     }
- 
+
     return _credential;
   }
 }

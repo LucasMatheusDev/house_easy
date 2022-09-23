@@ -32,9 +32,9 @@ class Validator {
   String? name(String name) {
     String? _response;
     if (name.isEmpty) {
-     _response = 'O Campo não pode estar vazio';
+      _response = 'O Campo não pode estar vazio';
     } else if (name.trim().split(' ').length <= 1) {
-     _response = 'Digite um Nome Valido, Com nome e sobrenome';
+      _response = 'Digite um Nome Valido, Com nome e sobrenome';
     } else {}
     return _response;
   }

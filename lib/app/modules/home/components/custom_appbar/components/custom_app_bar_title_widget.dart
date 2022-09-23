@@ -17,11 +17,12 @@ class CustomAppBarTitleWidget extends StatelessWidget {
           Icons.notifications,
           color: Colors.white,
         ),
-       Obx(() => Text(
-          UserCurrentController.name.value,
-          style: TextStyle(color: ColorsGuides().colorDetails, fontSize: 15),
+        Obx(
+          () => Text(
+            UserCurrentController.name.value,
+            style: TextStyle(color: ColorsGuides().colorDetails, fontSize: 15),
+          ),
         ),
-       ),
         isAdd
             ? const Icon(Icons.add, color: Colors.white)
             : const Icon(

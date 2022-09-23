@@ -6,7 +6,6 @@ import 'package:house_easy/app/modules/login/repository/user_auth.dart';
 
 class AuthLoginViewModel {
   Future login(UserLoginModel user) async {
-
     LoadButtonLoginController.isLoad.value = true;
 
     final _credencial = await UserAuthenticRepository().authLogin(user);
@@ -17,13 +16,12 @@ class AuthLoginViewModel {
           "Usuário invalido", "verifique os campos e tente novamente");
     }
     if (_credencial.user != null) {
-     Get.off(
+      Get.off(
         () => const HomeView(),
         transition: Transition.fadeIn,
         duration: const Duration(seconds: 1),
       );
       LoadButtonLoginController.isLoad.value = false;
-
     }
   }
 }

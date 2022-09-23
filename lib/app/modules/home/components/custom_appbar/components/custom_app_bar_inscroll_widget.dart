@@ -24,7 +24,6 @@ class CustomAppbarInScroll extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-              
                 HomePagesController.pageSelected.value = 5;
                 UserCurrentController.name.value = "Módulos";
               },
@@ -92,7 +91,6 @@ class CustomAppbarInScroll extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                
                 HomePagesController.pageSelected.value = 8;
 
                 UserCurrentController.name.value = "Ajuda";

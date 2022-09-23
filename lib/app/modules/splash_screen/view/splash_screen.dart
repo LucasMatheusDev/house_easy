@@ -18,7 +18,6 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: ColorsGuides().colorPredominant,
       body: Hero(
-        
         tag: "logo_splash",
         child: Image.asset(
           "assets/splash_screen/logo_houseEasy.jpg",
